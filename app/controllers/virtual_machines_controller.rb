@@ -107,7 +107,7 @@ class VirtualMachinesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_virtual_machine
-      @virtual_machine = VirtualMachine.find(params[:id])
+      #@virtual_machine = VirtualMachine.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

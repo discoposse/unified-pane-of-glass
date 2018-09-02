@@ -4,12 +4,17 @@
   <thead>
     <tr>
       <th>VM Name</th>
+      <th>Power State</th>
     </tr>
   </thead>
 
 	<tbody>
       <tr>
-        <td><%= @vmdetails %></td>
+        <td><%= @flatdetails[1]["name"] %></td>
+        <td>
+          <% if @flatdetails[1]["power_state"] == "POWERED_ON" %>RUNNING<% end %>
+          <% if @flatdetails[1]["power_state"] == "POWERED_OFF" %>OFF<% end %>
+        </td>
       </tr>
       <tr>
         <td colspan="2">
@@ -21,8 +26,6 @@
       </tr>
       <tr>
         <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Back to VMs</button>').html_safe, controller: "virtual_machines" %>
-        </td>
-        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Start</button>').html_safe, controller: "virtual_machines" %> %>
         </td>
       </tr>
   	</tbody>
