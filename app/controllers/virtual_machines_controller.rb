@@ -4,12 +4,55 @@ class VirtualMachinesController < ApplicationController
   # GET /virtual_machines
   # GET /virtual_machines.json
   def index
-    @virtual_machines = VirtualMachine.all
+    #@virtual_machines = VirtualMachine.all
+
+    vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
+
+    authtokenrequest = HTTParty.post(vcenter_session_url,
+      headers: {'Content-Type' => 'application/json',
+                  'vmware-use-header-authn' => 'BASIC'},
+      basic_auth: { username: ENV["RAILS_VCENTER_USER"],
+                      password: ENV["RAILS_VCENTER_PASS"] },
+      :verify => false)
+
+    vctoken = authtokenrequest["value"]
+
+    vm_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm"
+
+    @vmresults = HTTParty.get(vm_url, 
+      :headers => { 'Content-Type' => 'application/json',
+                    'vmware-api-session-id' => vctoken }, 
+      :verify => false)
+
   end
 
   # GET /virtual_machines/1
   # GET /virtual_machines/1.json
   def show
+    vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
+
+    authtokenrequest = HTTParty.post(vcenter_session_url,
+      headers: {'Content-Type' => 'application/json',
+                  'vmware-use-header-authn' => 'BASIC'},
+      basic_auth: { username: ENV["RAILS_VCENTER_USER"],
+                      password: ENV["RAILS_VCENTER_PASS"] },
+      :verify => false)
+
+    vctoken = authtokenrequest["value"]
+
+    detail_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm/" + (params[:id])
+
+    @vmdetails = HTTParty.get(detail_url, 
+      :headers => { 'Content-Type' => 'application/json',
+                    'vmware-api-session-id' => vctoken}, 
+      :verify => false) 
+
+    #Convert output to string and parse
+    @p = JSON.parse(@vmdetails.to_s)
+    #Flatten the JSON hash
+    @flatdetails = @p.flatten(4)
+    # Now we can get stuff from it
+    @vname = @flatdetails[1]["name"]
   end
 
   # GET /virtual_machines/new

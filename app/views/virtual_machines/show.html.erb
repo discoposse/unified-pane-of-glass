@@ -1,4 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_virtual_machine_path(@virtual_machine) %> |
-<%= link_to 'Back', virtual_machines_path %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>VM Name</th>
+      <th>Power State</th>
+      <th>VMX Version</th>
+      <th>JSON Results</th>
+    </tr>
+  </thead>
+
+	<tbody>
+      <tr>
+        <td><%= @flatdetails[1]["name"] %></td>
+        <td><%= @flatdetails[1]["power_state"] %></td>
+        <td><%= @flatdetails[1]["version"] %></td>
+        <td><%= @flatdetails %></td>
+      </tr>
+  	</tbody>
+
+    
+</table>
