@@ -4,18 +4,26 @@
   <thead>
     <tr>
       <th>VM Name</th>
-      <th>Power State</th>
-      <th>VMX Version</th>
-      <th>JSON Results</th>
     </tr>
   </thead>
 
 	<tbody>
       <tr>
-        <td><%= @flatdetails[1]["name"] %></td>
-        <td><%= @flatdetails[1]["power_state"] %></td>
-        <td><%= @flatdetails[1]["version"] %></td>
-        <td><%= @flatdetails %></td>
+        <td><%= @vmdetails %></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          JSON RESULTS
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"><%= @p %></td>
+      </tr>
+      <tr>
+        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Back to VMs</button>').html_safe, controller: "virtual_machines" %>
+        </td>
+        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Start</button>').html_safe, controller: "virtual_machines" %> %>
+        </td>
       </tr>
   	</tbody>
 

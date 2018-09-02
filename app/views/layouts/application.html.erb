@@ -16,7 +16,7 @@
 
 
   <body>
-
+    <div class="main-container">
   	  	<header class = "header header-6">
 
   	  	<div class="branding">
@@ -30,6 +30,11 @@
 
   		</header>
 
-    <%= yield %>
+      <div class="content-container">
+        <div class="content-area">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

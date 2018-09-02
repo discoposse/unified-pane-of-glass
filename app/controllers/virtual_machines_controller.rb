@@ -52,7 +52,7 @@ class VirtualMachinesController < ApplicationController
     #Flatten the JSON hash
     @flatdetails = @p.flatten(4)
     # Now we can get stuff from it
-    @vname = @flatdetails[1]["name"]
+    #@vname = @flatdetails[1]["name"]
   end
 
   # GET /virtual_machines/new
