@@ -44,7 +44,8 @@ class VirtualMachinesController < ApplicationController
     vctoken = authtokenrequest["value"]
     # Create the URL which gets the VM details by concatenating the vCenter + url + VM id
     detail_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm/" + (params[:id])
-
+    # Keep the VM ID to pass to the start and stop actions
+    @vm_id = (params[:id])
     # Get the details from the API
     @vmdetails = HTTParty.get(detail_url, 
       :headers => { 'Content-Type' => 'application/json',

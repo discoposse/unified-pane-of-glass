@@ -5,6 +5,7 @@
     <tr>
       <th>VM Name</th>
       <th>Power State</th>
+      <th>VM ID</th>
       <th>Disks</th>
     </tr>
   </thead>
@@ -16,19 +17,21 @@
           <% if @flatdetails[1]["power_state"] == "POWERED_ON" %>RUNNING<% end %>
           <% if @flatdetails[1]["power_state"] == "POWERED_OFF" %>OFF<% end %>
         </td>
+        <td><%= @vm_id %></td>
         <td><%= @diskdetails %></td>
       </tr>
       <tr>
-        <td colspan="3">
+        <td colspan = "4">
           JSON RESULTS
         </td>
       </tr>
       <tr>
-        <td colspan="3"><%= @p %></td>
+        <td colspan = "4"><%= @p %></td>
       </tr>
       <tr>
-        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Back to VMs</button>').html_safe, controller: "virtual_machines" %>
-        <%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Start</button>').html_safe, '/startvm', id: @flatdetails[1]["vm"] %>
+        <td colspan = "4"><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Back to VMs</button>').html_safe, controller: "virtual_machines" %>
+        <%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Start</button>').html_safe, controller: "virtual_machines", action: "start_vm", id: @vm_id %>
+          <%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Stop</button>').html_safe, controller: "virtual_machines", action: "stop_vm", id: @vm_id %>
         </td>
       </tr>
   	</tbody>
