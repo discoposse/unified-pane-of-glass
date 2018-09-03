@@ -1,5 +1,5 @@
 class VirtualMachinesController < ApplicationController
-  before_action :set_virtual_machine, only: [:show, :edit, :update, :destroy, :start]
+  before_action :set_virtual_machine, only: [:show, :edit, :update, :destroy, :start_vm]
 
   # GET /virtual_machines
   # GET /virtual_machines.json
@@ -59,9 +59,33 @@ class VirtualMachinesController < ApplicationController
     @diskdetails = @flatdetails[1]["disks"].flatten(4)
   end
 
+  def start_vm
+    # Create the session URL by oncatenating hte vCenter URL + the session path
+    vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
+    # get a token bu passing basic auth to the cis/session path
+    authtokenrequest = HTTParty.post(vcenter_session_url,
+      headers: {'Content-Type' => 'application/json',
+                  'vmware-use-header-authn' => 'BASIC'},
+      basic_auth: { username: ENV["RAILS_VCENTER_USER"],
+                      password: ENV["RAILS_VCENTER_PASS"] },
+      :verify => false)
+
+    # Pull the token from the JSON result
+    vctoken = authtokenrequest["value"]
+    # Create the URL which gets the VM details by concatenating the vCenter + url + VM id
+    start_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm/" + (params[:id]) + "/power/start"
+
+    @vm_start_results = HTTParty.post(start_url, 
+      :headers => { 'Content-Type' => 'application/json',
+                    'vmware-api-session-id' => vctoken}, 
+      :verify => false) 
+
+    redirect_to virtual_machines_url, notice: "#{start_url} was sent"
+  end
+
   # GET /virtual_machines/new
   def new
-    @virtual_machine = VirtualMachine.new
+    #@virtual_machine = VirtualMachine.new
   end
 
   # GET /virtual_machines/1/edit
@@ -71,41 +95,41 @@ class VirtualMachinesController < ApplicationController
   # POST /virtual_machines
   # POST /virtual_machines.json
   def create
-    @virtual_machine = VirtualMachine.new(virtual_machine_params)
+    #@virtual_machine = VirtualMachine.new(virtual_machine_params)
 
-    respond_to do |format|
-      if @virtual_machine.save
-        format.html { redirect_to @virtual_machine, notice: 'Virtual machine was successfully created.' }
-        format.json { render :show, status: :created, location: @virtual_machine }
-      else
-        format.html { render :new }
-        format.json { render json: @virtual_machine.errors, status: :unprocessable_entity }
-      end
-    end
+    #respond_to do |format|
+    #  if @virtual_machine.save
+    #    format.html { redirect_to @virtual_machine, notice: 'Virtual machine was successfully created.' }
+    #    format.json { render :show, status: :created, location: @virtual_machine }
+    #  else
+    #    format.html { render :new }
+    #    format.json { render json: @virtual_machine.errors, status: :unprocessable_entity }
+    #  end
+    #end
   end
 
   # PATCH/PUT /virtual_machines/1
   # PATCH/PUT /virtual_machines/1.json
   def update
-    respond_to do |format|
-      if @virtual_machine.update(virtual_machine_params)
-        format.html { redirect_to @virtual_machine, notice: 'Virtual machine was successfully updated.' }
-        format.json { render :show, status: :ok, location: @virtual_machine }
-      else
-        format.html { render :edit }
-        format.json { render json: @virtual_machine.errors, status: :unprocessable_entity }
-      end
-    end
+    #respond_to do |format|
+    #  if @virtual_machine.update(virtual_machine_params)
+    #    format.html { redirect_to @virtual_machine, notice: 'Virtual machine was successfully updated.' }
+    #    format.json { render :show, status: :ok, location: @virtual_machine }
+    #  else
+    #    format.html { render :edit }
+    #    format.json { render json: @virtual_machine.errors, status: :unprocessable_entity }
+    #  end
+    #end
   end
 
   # DELETE /virtual_machines/1
   # DELETE /virtual_machines/1.json
   def destroy
-    @virtual_machine.destroy
-    respond_to do |format|
-      format.html { redirect_to virtual_machines_url, notice: 'Virtual machine was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    #@virtual_machine.destroy
+    #respond_to do |format|
+    #  format.html { redirect_to virtual_machines_url, notice: 'Virtual machine was successfully #destroyed.' }
+    #  format.json { head :no_content }
+    #end
   end
 
   private
