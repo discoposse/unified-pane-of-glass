@@ -1,5 +1,5 @@
 class VirtualMachinesController < ApplicationController
-  before_action :set_virtual_machine, only: [:show, :edit, :update, :destroy, :start_vm]
+  before_action :set_virtual_machine, only: [:show, :edit, :update, :destroy, :start_vm, :stop_vm]
 
   # GET /virtual_machines
   # GET /virtual_machines.json
@@ -81,6 +81,30 @@ class VirtualMachinesController < ApplicationController
       :verify => false) 
 
     redirect_to virtual_machines_url, notice: "#{start_url} was sent"
+  end
+
+  def stop_vm
+    # Create the session URL by oncatenating hte vCenter URL + the session path
+    vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
+    # get a token bu passing basic auth to the cis/session path
+    authtokenrequest = HTTParty.post(vcenter_session_url,
+      headers: {'Content-Type' => 'application/json',
+                  'vmware-use-header-authn' => 'BASIC'},
+      basic_auth: { username: ENV["RAILS_VCENTER_USER"],
+                      password: ENV["RAILS_VCENTER_PASS"] },
+      :verify => false)
+
+    # Pull the token from the JSON result
+    vctoken = authtokenrequest["value"]
+    # Create the URL which gets the VM details by concatenating the vCenter + url + VM id
+    stop_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm/" + (params[:id]) + "/power/stop"
+
+    @vm_stop_results = HTTParty.post(stop_url, 
+      :headers => { 'Content-Type' => 'application/json',
+                    'vmware-api-session-id' => vctoken}, 
+      :verify => false) 
+
+    redirect_to virtual_machines_url, notice: "#{stop_url} was sent"
   end
 
   # GET /virtual_machines/new
