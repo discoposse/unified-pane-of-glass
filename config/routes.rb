@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :selected_instances
   root 'virtual_machines#index'
   resources :virtual_machines
   match '/startvm' => 'virtual_machines#start_vm', via: :get

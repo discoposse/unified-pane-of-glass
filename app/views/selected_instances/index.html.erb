@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Selected Instances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @selected_instances.each do |selected_instance| %>
+      <tr>
+        <td><%= link_to 'Show', selected_instance %></td>
+        <td><%= link_to 'Edit', edit_selected_instance_path(selected_instance) %></td>
+        <td><%= link_to 'Destroy', selected_instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Selected Instance', new_selected_instance_path %>

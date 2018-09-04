@@ -1,0 +1,2 @@
+class SelectedInstance < ApplicationRecord
+end
