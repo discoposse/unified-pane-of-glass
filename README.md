@@ -30,6 +30,9 @@ create user 'databaseuser'@'%' identified by 'databasepassword';
 grant all privileges on upog.* to 'databaseuser'@'%';
 flush privileges;
 ```
+
+* Update the `config/database.yml` file with the username and database info which you used in the previous step
+
 * Environment setup - 12-factor(ish) by using environment variables to set up a few credentials using your own choice of passwords and usernames
 ```
 export RAILS_VCENTER_USER=yourusername@yourssodomain
