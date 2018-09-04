@@ -1,6 +1,18 @@
 # Unified Pane of Glass - Ruby on Rails vCenter Portal
 
-There are a few things you need to get this going
+## What is this?
+
+The idea came up to meet a need for certain people to access certain virtual machines in a VMware environment and be able to power them up and down as well as to reserve them for use for certain time periods.
+
+This idea was brought to the VMworld 2018 hackathon and we developed the first pass there.  This repo is the continuing effort to grow out that idea into something more usable.
+
+## What's with the name?
+
+This is entirely a tongue-in-cheek reference to every possible vendor solution out there that tries to give you the "single pane of glass" when you actually need all of your panes of glass together as a Unifed Pane of Glass.
+
+## How to set up the Unified Pane of Glass
+
+There are a few things you need to get this going:
 
 * Ruby version 2.3.6 (might work with others but built on 2.3.6)
 
