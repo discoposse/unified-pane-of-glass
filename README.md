@@ -34,7 +34,9 @@ rake db:migrate
 `
 * Start it up using `rails server` from the root folder and click on [http://localhost:3000](http://localhost:3000)
 
-* Feel free to update the app/assets/
+* Feel free to update the app/assets/logo.png file with your own
+
+There may be more to the process. Please submit an issue if there is anything that doesn't work for you.
 
 
 
