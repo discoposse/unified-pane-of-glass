@@ -1,70 +1,36 @@
 class SelectedInstancesController < ApplicationController
   before_action :set_selected_instance, only: [:show, :edit, :update, :destroy]
 
-  # GET /selected_instances
-  # GET /selected_instances.json
   def index
-    @selected_instances = SelectedInstance.all
+
+    # Create the session URL by oncatenating hte vCenter URL + the session path
+    vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
+    # get a token bu passing basic auth to the cis/session path
+    authtokenrequest = HTTParty.post(vcenter_session_url,
+      headers: {'Content-Type' => 'application/json',
+                  'vmware-use-header-authn' => 'BASIC'},
+      basic_auth: { username: ENV["RAILS_VCENTER_USER"],
+                      password: ENV["RAILS_VCENTER_PASS"] },
+      :verify => false)
+
+    # Pull the token from the JSON result
+    vctoken = authtokenrequest["value"]
+    # Create the URL which gets the VM list by concatenating the vCenter + url path
+    vm_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm?filter.names=" + "PH3"
+
+    @selected_vm_results = HTTParty.get(vm_url, 
+      :headers => { 'Content-Type' => 'application/json',
+                    'vmware-api-session-id' => vctoken }, 
+      :verify => false)
   end
 
-  # GET /selected_instances/1
-  # GET /selected_instances/1.json
   def show
-  end
-
-  # GET /selected_instances/new
-  def new
-    @selected_instance = SelectedInstance.new
-  end
-
-  # GET /selected_instances/1/edit
-  def edit
-  end
-
-  # POST /selected_instances
-  # POST /selected_instances.json
-  def create
-    @selected_instance = SelectedInstance.new(selected_instance_params)
-
-    respond_to do |format|
-      if @selected_instance.save
-        format.html { redirect_to @selected_instance, notice: 'Selected instance was successfully created.' }
-        format.json { render :show, status: :created, location: @selected_instance }
-      else
-        format.html { render :new }
-        format.json { render json: @selected_instance.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /selected_instances/1
-  # PATCH/PUT /selected_instances/1.json
-  def update
-    respond_to do |format|
-      if @selected_instance.update(selected_instance_params)
-        format.html { redirect_to @selected_instance, notice: 'Selected instance was successfully updated.' }
-        format.json { render :show, status: :ok, location: @selected_instance }
-      else
-        format.html { render :edit }
-        format.json { render json: @selected_instance.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /selected_instances/1
-  # DELETE /selected_instances/1.json
-  def destroy
-    @selected_instance.destroy
-    respond_to do |format|
-      format.html { redirect_to selected_instances_url, notice: 'Selected instance was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_selected_instance
-      @selected_instance = SelectedInstance.find(params[:id])
+      # @selected_instance = SelectedInstance.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,25 +1,43 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Selected Instances</h1>
+<h1>Virtual Machines</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>VM Name</th>
+      <th>VM ID</th>
+      <th>CPU Count</th>
+      <th>Power State</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @selected_instances.each do |selected_instance| %>
+    <% @selected_vm_results["value"].each do |vmresult| %>
       <tr>
-        <td><%= link_to 'Show', selected_instance %></td>
-        <td><%= link_to 'Edit', edit_selected_instance_path(selected_instance) %></td>
-        <td><%= link_to 'Destroy', selected_instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= vmresult["name"] %></td>
+        <td><%= vmresult["vm"] %></td>
+        <td><%= vmresult["cpu_count"] %></td>
+        <td>
+          <% if vmresult["power_state"] == "POWERED_ON" %>RUNNING<% end %>
+          <% if vmresult["power_state"] == "POWERED_OFF" %>OFF<% end %>
+        </td>
+        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Details</button>').html_safe, controller: "virtual_machines", action: "show", id: vmresult["vm"] %>
+          <%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Start</button>').html_safe, controller: "virtual_machines", action: "start_vm", id: vmresult["vm"] %>
+          <%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Stop</button>').html_safe, controller: "virtual_machines", action: "stop_vm", id: vmresult["vm"] %>
+        </td>
       </tr>
     <% end %>
+
+    <tr>
+      <td colspan="5">Full JSON Results</td>
+    </tr>
+    <tr>
+      <td colspan="5"><%= @selected_vm_results %></td>
+    </tr>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Selected Instance', new_selected_instance_path %>
