@@ -19,14 +19,16 @@ default: &default
 
 development:
   <<: *default
-  database: unified-pane-of-glass_development
+  database: upog
+  username: databaseusername
+  password: <%= ENV['UPOG_DATABASE_PASSWORD'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: unified-pane-of-glass_test
+  database: upog
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -49,6 +51,6 @@ test:
 #
 production:
   <<: *default
-  database: unified-pane-of-glass_production
-  username: unified-pane-of-glass
-  password: <%= ENV['UNIFIED-PANE-OF-GLASS_DATABASE_PASSWORD'] %>
+  database: upog
+  username: databaseusername
+  password: <%= ENV['UPOG_DATABASE_PASSWORD'] %>
