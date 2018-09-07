@@ -1,3 +1,4 @@
+exports.sh
 public/*.json
 *.rbc
 capybara-*.html
