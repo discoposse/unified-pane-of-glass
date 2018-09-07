@@ -1,0 +1,9 @@
+development:
+  selected_instance_filter: PH3
+
+test:
+  selected_instance_filter: PH3
+
+production:
+  selected_instance_filter: PH3
+

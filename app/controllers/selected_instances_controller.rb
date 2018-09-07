@@ -2,6 +2,9 @@ class SelectedInstancesController < ApplicationController
   before_action :set_selected_instance, only: [:show, :edit, :update, :destroy]
 
   def index
+    upog_config = Rails.application.config_for(:upog)
+
+    @selected_instance_filter = Rails.application.config.x.upog.selected_instance_filter = upog_config['selected_instance_filter']
 
     # Create the session URL by oncatenating hte vCenter URL + the session path
     vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
@@ -16,7 +19,7 @@ class SelectedInstancesController < ApplicationController
     # Pull the token from the JSON result
     vctoken = authtokenrequest["value"]
     # Create the URL which gets the VM list by concatenating the vCenter + url path
-    vm_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm?filter.names=" + "PH3"
+    vm_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm" + "?filter.names=" + @selected_instance_filter
 
     @selected_vm_results = HTTParty.get(vm_url, 
       :headers => { 'Content-Type' => 'application/json',

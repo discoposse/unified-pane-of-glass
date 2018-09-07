@@ -54,4 +54,15 @@ rake db:migrate
 There may be more to the process. Please submit an issue if there is anything that doesn't work for you.
 
 
+### TODO List of more goodies to be added
+
+- [ ] Error handling - pretty much everywhere
+- [ ] List VM Templates (not sure how to do this via API yet)
+- [ ] Add PowerCLI sandbox option
+- [ ] Disallow vCenter shutdown
+- [ ] Wildcard searches for specific instance view
+- [ ] Assign an owner to each VM
+- [ ] Create reservation for a machine
+
+
 

@@ -1,0 +1,1 @@
+UPOG_CONFIG = Rails.application.config_for(:upog)
