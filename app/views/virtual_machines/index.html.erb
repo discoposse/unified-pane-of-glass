@@ -5,6 +5,14 @@
 <table class="table">
   <thead>
     <tr>
+        <td colspan = "5">
+          <%= form_tag '', :method => :get do %>
+            <%= text_field_tag :value_one %>
+            <%= submit_tag 'Filter' %>
+          <% end %>
+        </td>
+    </tr>
+    <tr>
       <th>VM Name</th>
       <th>VM ID</th>
       <th>CPU Count</th>

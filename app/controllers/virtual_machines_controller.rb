@@ -22,6 +22,15 @@ class VirtualMachinesController < ApplicationController
       :headers => { 'Content-Type' => 'application/json',
                     'vmware-api-session-id' => vctoken }, 
       :verify => false)
+
+    # Convert output to string and parse
+    vm_string = JSON.parse(@vmresults["value"].to_s)
+    #Flatten the JSON hash
+    vm_string_results = vm_string["value"].flatten(4)
+
+    @fitlered_results = vm_filter.select{}
+
+
   end
 
   def show

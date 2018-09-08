@@ -1,9 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Virtual Machines</h1>
+<h1 align="center">Virtual Machines</h1>
 
 <table class="table">
   <thead>
+    <tr>
+        <td colspan = "5">
+          <%= form_tag '', :method => :get do %>
+            <%= text_field_tag :value_one %>
+            <%= submit_tag 'Filter' %>
+          <% end %>
+        </td>
+    </tr>
     <tr>
       <th>VM Name</th>
       <th>VM ID</th>
@@ -14,6 +22,7 @@
   </thead>
 
   <tbody>
+      
     <% @selected_vm_results["value"].each do |vmresult| %>
       <tr>
         <td><%= vmresult["name"] %></td>
