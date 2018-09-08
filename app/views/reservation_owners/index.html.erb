@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reservation Owners</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reservation_owners.each do |reservation_owner| %>
+      <tr>
+        <td><%= reservation_owner.firstname %></td>
+        <td><%= reservation_owner.lastname %></td>
+        <td><%= reservation_owner.email %></td>
+        <td><%= link_to 'Show', reservation_owner %></td>
+        <td><%= link_to 'Edit', edit_reservation_owner_path(reservation_owner) %></td>
+        <td><%= link_to 'Destroy', reservation_owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Reservation Owner', new_reservation_owner_path %>

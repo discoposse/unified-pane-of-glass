@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Firstname:</strong>
+  <%= @reservation_owner.firstname %>
+</p>
+
+<p>
+  <strong>Lastname:</strong>
+  <%= @reservation_owner.lastname %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @reservation_owner.email %>
+</p>
+
+<%= link_to 'Edit', edit_reservation_owner_path(@reservation_owner) %> |
+<%= link_to 'Back', reservation_owners_path %>

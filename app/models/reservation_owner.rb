@@ -1,0 +1,2 @@
+class ReservationOwner < ApplicationRecord
+end
