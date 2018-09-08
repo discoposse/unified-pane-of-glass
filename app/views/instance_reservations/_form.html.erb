@@ -1,0 +1,27 @@
+<%= form_with(model: instance_reservation, local: true) do |form| %>
+  <% if instance_reservation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(instance_reservation.errors.count, "error") %> prohibited this instance_reservation from being saved:</h2>
+
+      <ul>
+      <% instance_reservation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :reservation_owner_id %>
+    <%= form.text_field :reservation_owner_id, id: :instance_reservation_reservation_owner_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reservable_instance_id %>
+    <%= form.text_field :reservable_instance_id, id: :instance_reservation_reservable_instance_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

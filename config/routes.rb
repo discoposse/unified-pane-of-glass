@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :instance_reservations
   resources :reservation_owners
   resources :reservable_instances
   resources :object_owners

@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180908213247) do
+ActiveRecord::Schema.define(version: 20180908213542) do
+
+  create_table "instance_reservations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.bigint "reservation_owner_id"
+    t.bigint "reservable_instance_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reservable_instance_id"], name: "index_instance_reservations_on_reservable_instance_id"
+    t.index ["reservation_owner_id"], name: "index_instance_reservations_on_reservation_owner_id"
+  end
 
   create_table "object_owners", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "firstname"
@@ -45,4 +54,6 @@ ActiveRecord::Schema.define(version: 20180908213247) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "instance_reservations", "reservable_instances"
+  add_foreign_key "instance_reservations", "reservation_owners"
 end

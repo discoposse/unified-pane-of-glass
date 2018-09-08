@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reservation owner:</strong>
+  <%= @instance_reservation.reservation_owner %>
+</p>
+
+<p>
+  <strong>Reservable instance:</strong>
+  <%= @instance_reservation.reservable_instance %>
+</p>
+
+<%= link_to 'Edit', edit_instance_reservation_path(@instance_reservation) %> |
+<%= link_to 'Back', instance_reservations_path %>
