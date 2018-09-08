@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Object Owners</h1>
+<h1 align="center">Owners</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
+      <th>First Name</th>
+      <th>Last Name</th>
       <th>Email</th>
       <th colspan="3"></th>
     </tr>
@@ -18,9 +18,9 @@
         <td><%= object_owner.firstname %></td>
         <td><%= object_owner.lastname %></td>
         <td><%= object_owner.email %></td>
-        <td><%= link_to 'Show', object_owner %></td>
-        <td><%= link_to 'Edit', edit_object_owner_path(object_owner) %></td>
-        <td><%= link_to 'Destroy', object_owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">View</button>').html_safe, object_owner %></td>
+        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Edit</button>').html_safe, edit_object_owner_path(object_owner) %></td>
+        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Delete</button>').html_safe, object_owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Object Owner', new_object_owner_path %>
+<%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">New Owner</button>').html_safe, new_object_owner_path %>

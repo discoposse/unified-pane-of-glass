@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Firstname:</strong>
+  <strong>First Name:</strong>
   <%= @object_owner.firstname %>
 </p>
 
 <p>
-  <strong>Lastname:</strong>
+  <strong>Last Name:</strong>
   <%= @object_owner.lastname %>
 </p>
 
@@ -15,5 +15,5 @@
   <%= @object_owner.email %>
 </p>
 
-<%= link_to 'Edit', edit_object_owner_path(@object_owner) %> |
-<%= link_to 'Back', object_owners_path %>
+<%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Edit</button>').html_safe, edit_object_owner_path(@object_owner) %> |
+<%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Back</button>').html_safe, object_owners_path %>

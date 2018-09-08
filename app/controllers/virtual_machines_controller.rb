@@ -23,13 +23,13 @@ class VirtualMachinesController < ApplicationController
                     'vmware-api-session-id' => vctoken }, 
       :verify => false)
 
+    ### NOT YET USED - Related to filtering
     # Convert output to string and parse
-    vm_string = JSON.parse(@vmresults["value"].to_s)
+    #vm_string = JSON.parse(@vmresults["value"].to_s)
     #Flatten the JSON hash
-    vm_string_results = vm_string["value"].flatten(4)
-
-    @fitlered_results = vm_filter.select{}
-
+    #vm_string_results = vm_string["value"].flatten(4)
+    #@fitlered_results = vm_filter.select{}
+    ### END FILTERING SECTION 
 
   end
 
