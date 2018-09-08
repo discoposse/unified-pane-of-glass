@@ -14,8 +14,8 @@
   <tbody>
     <% @instance_reservations.each do |instance_reservation| %>
       <tr>
-        <td><%= instance_reservation.reservation_owner %></td>
-        <td><%= instance_reservation.reservable_instance %></td>
+        <td><%= instance_reservation.reservation_owner.email %></td>
+        <td><%= instance_reservation.reservable_instance.name %></td>
         <td><%= link_to 'Show', instance_reservation %></td>
         <td><%= link_to 'Edit', edit_instance_reservation_path(instance_reservation) %></td>
         <td><%= link_to 'Destroy', instance_reservation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
