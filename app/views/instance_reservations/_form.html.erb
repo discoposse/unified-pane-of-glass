@@ -13,12 +13,12 @@
 
   <div class="field">
     <%= form.label :reservation_owner_id %>
-    <%= form.text_field :reservation_owner_id, id: :instance_reservation_reservation_owner_id %>
+    <%= form.collection_select :reservation_owner_id, ReservationOwner.all, :id, :email %>
   </div>
 
   <div class="field">
     <%= form.label :reservable_instance_id %>
-    <%= form.text_field :reservable_instance_id, id: :instance_reservation_reservable_instance_id %>
+    <%= form.collection_select :reservable_instance_id, ReservableInstance.all, :id, :name %>
   </div>
 
   <div class="actions">
