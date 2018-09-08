@@ -1,0 +1,2 @@
+class ObjectOwner < ApplicationRecord
+end

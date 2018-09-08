@@ -1,0 +1,32 @@
+<%= form_with(model: object_owner, local: true) do |form| %>
+  <% if object_owner.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(object_owner.errors.count, "error") %> prohibited this object_owner from being saved:</h2>
+
+      <ul>
+      <% object_owner.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :firstname %>
+    <%= form.text_field :firstname, id: :object_owner_firstname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lastname %>
+    <%= form.text_field :lastname, id: :object_owner_lastname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :object_owner_email %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

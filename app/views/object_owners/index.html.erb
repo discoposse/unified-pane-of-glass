@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Object Owners</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @object_owners.each do |object_owner| %>
+      <tr>
+        <td><%= object_owner.firstname %></td>
+        <td><%= object_owner.lastname %></td>
+        <td><%= object_owner.email %></td>
+        <td><%= link_to 'Show', object_owner %></td>
+        <td><%= link_to 'Edit', edit_object_owner_path(object_owner) %></td>
+        <td><%= link_to 'Destroy', object_owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Object Owner', new_object_owner_path %>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Firstname:</strong>
+  <%= @object_owner.firstname %>
+</p>
+
+<p>
+  <strong>Lastname:</strong>
+  <%= @object_owner.lastname %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @object_owner.email %>
+</p>
+
+<%= link_to 'Edit', edit_object_owner_path(@object_owner) %> |
+<%= link_to 'Back', object_owners_path %>
