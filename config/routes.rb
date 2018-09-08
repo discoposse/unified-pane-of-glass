@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reservable_instances
   resources :object_owners
   resources :selected_instances
   root 'virtual_machines#index'

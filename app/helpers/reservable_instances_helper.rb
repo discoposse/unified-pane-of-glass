@@ -1,0 +1,2 @@
+module ReservableInstancesHelper
+end

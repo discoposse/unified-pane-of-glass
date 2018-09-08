@@ -1,0 +1,2 @@
+class ReservableInstance < ApplicationRecord
+end

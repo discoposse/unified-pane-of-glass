@@ -1,0 +1,27 @@
+<%= form_with(model: reservable_instance, local: true) do |form| %>
+  <% if reservable_instance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reservable_instance.errors.count, "error") %> prohibited this reservable_instance from being saved:</h2>
+
+      <ul>
+      <% reservable_instance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :reservable_instance_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :vm %>
+    <%= form.text_field :vm, id: :reservable_instance_vm %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

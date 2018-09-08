@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reservable Instances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Vm</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reservable_instances.each do |reservable_instance| %>
+      <tr>
+        <td><%= reservable_instance.name %></td>
+        <td><%= reservable_instance.vm %></td>
+        <td><%= link_to 'Show', reservable_instance %></td>
+        <td><%= link_to 'Edit', edit_reservable_instance_path(reservable_instance) %></td>
+        <td><%= link_to 'Destroy', reservable_instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Reservable Instance', new_reservable_instance_path %>
