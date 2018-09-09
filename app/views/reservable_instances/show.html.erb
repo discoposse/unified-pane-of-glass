@@ -6,9 +6,9 @@
 </p>
 
 <p>
-  <strong>Vm:</strong>
+  <strong>VM ID:</strong>
   <%= @reservable_instance.vm %>
 </p>
 
-<%= link_to 'Edit', edit_reservable_instance_path(@reservable_instance) %> |
-<%= link_to 'Back', reservable_instances_path %>
+<%= link_to 'Edit', edit_reservable_instance_path(@reservable_instance), class: "btn btn-success-outline" %> 
+<%= link_to 'Back', reservable_instances_path, class: "btn btn-success-outline" %>

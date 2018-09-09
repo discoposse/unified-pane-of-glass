@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Instance Reservations</h1>
+<h1 align="center">Instance Reservations</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Reservation owner</th>
@@ -16,9 +16,9 @@
       <tr>
         <td><%= instance_reservation.reservation_owner.email %></td>
         <td><%= instance_reservation.reservable_instance.name %></td>
-        <td><%= link_to 'Show', instance_reservation %></td>
-        <td><%= link_to 'Edit', edit_instance_reservation_path(instance_reservation) %></td>
-        <td><%= link_to 'Destroy', instance_reservation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', instance_reservation, class: "btn btn-success-outline" %></td>
+        <td><%= link_to 'Edit', edit_instance_reservation_path(instance_reservation), class: "btn btn-success-outline" %></td>
+        <td><%= link_to 'Destroy', instance_reservation, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-success-outline" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Instance Reservation', new_instance_reservation_path %>
+<%= link_to 'New Instance Reservation', new_instance_reservation_path, class: "btn btn-success-outline" %>

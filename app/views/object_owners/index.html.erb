@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1 align="center">Owners</h1>
+<h1 align="center">Virtual Machine Owners</h1>
 
 <table class="table">
   <thead>
@@ -18,9 +18,9 @@
         <td><%= object_owner.firstname %></td>
         <td><%= object_owner.lastname %></td>
         <td><%= object_owner.email %></td>
-        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">View</button>').html_safe, object_owner %></td>
-        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Edit</button>').html_safe, edit_object_owner_path(object_owner) %></td>
-        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Delete</button>').html_safe, object_owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "View", object_owner, class: "btn btn-success-outline" %></td>
+        <td><%= link_to "Edit", edit_object_owner_path(object_owner), class: "btn btn-success-outline" %></td>
+        <td><%= link_to "Delete", object_owner, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-success-outline" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">New Owner</button>').html_safe, new_object_owner_path %>
+<%= link_to "New Owner", new_object_owner_path, class: "btn btn-success-outline" %>

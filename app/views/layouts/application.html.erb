@@ -29,7 +29,9 @@
   		<div class="header-nav">
   			<%= link_to 'All VMs', virtual_machines_path, :class =>"nav-link nav-text" %>
         <%= link_to 'Selected VMs', selected_instances_path, :class =>"nav-link nav-text" %>
-        <%= link_to 'Owners', object_owners_path, :class =>"nav-link nav-text" %>
+        <%= link_to 'VM Owners', object_owners_path, :class =>"nav-link nav-text" %>
+        <%= link_to 'Reservation Owners', reservation_owners_path, :class =>"nav-link nav-text" %>
+        <%= link_to 'Reservations', instance_reservations_path, :class =>"nav-link nav-text" %>
   		</div>
 
   		</header>

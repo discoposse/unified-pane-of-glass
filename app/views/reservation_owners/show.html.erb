@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Firstname:</strong>
+  <strong>First Name:</strong>
   <%= @reservation_owner.firstname %>
 </p>
 
 <p>
-  <strong>Lastname:</strong>
+  <strong>Last Name:</strong>
   <%= @reservation_owner.lastname %>
 </p>
 
@@ -15,5 +15,5 @@
   <%= @reservation_owner.email %>
 </p>
 
-<%= link_to 'Edit', edit_reservation_owner_path(@reservation_owner) %> |
-<%= link_to 'Back', reservation_owners_path %>
+<%= link_to 'Edit', edit_reservation_owner_path(@reservation_owner), class: "btn btn-success-outline" %> 
+<%= link_to 'Back', reservation_owners_path, class: "btn btn-success-outline" %>

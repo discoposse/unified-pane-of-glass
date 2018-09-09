@@ -1,5 +1,5 @@
-<h1>New Object Owner</h1>
+<h1 align="center">New Object Owner</h1>
 
 <%= render 'form', object_owner: @object_owner %>
 
-<%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Back</button>').html_safe, object_owners_path %>
+<%= link_to "Back", object_owners_path, class: "btn btn-success-outline" %>

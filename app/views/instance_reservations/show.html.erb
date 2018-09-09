@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Reservation owner:</strong>
+  <strong>Reservation Owner:</strong>
   <%= @instance_reservation.reservation_owner.email %>
 </p>
 
 <p>
-  <strong>Reservable instance:</strong>
+  <strong>Instance Name:</strong>
   <%= @instance_reservation.reservable_instance.name %>
 </p>
 
-<%= link_to 'Edit', edit_instance_reservation_path(@instance_reservation) %> |
-<%= link_to 'Back', instance_reservations_path %>
+<%= link_to 'Edit', edit_instance_reservation_path(@instance_reservation), class: "btn btn-success-outline" %>
+<%= link_to 'Back', instance_reservations_path, class: "btn btn-success-outline" %>
