@@ -32,7 +32,7 @@
           <% if vmresult["power_state"] == "POWERED_ON" %>RUNNING<% end %>
           <% if vmresult["power_state"] == "POWERED_OFF" %>OFF<% end %>
         </td>
-        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Details</button>').html_safe, controller: "virtual_machines", action: "show", id: vmresult["vm"] %>
+        <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Details</button>').html_safe, controller: "virtual_machines", action: "show", id: vmresult["vm"], class: "btn btn-success-outline" %>
           <%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Start</button>').html_safe, controller: "virtual_machines", action: "start_vm", id: vmresult["vm"] %>
           <%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Stop</button>').html_safe, controller: "virtual_machines", action: "stop_vm", id: vmresult["vm"] %>
         </td>

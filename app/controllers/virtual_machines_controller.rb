@@ -112,6 +112,30 @@ class VirtualMachinesController < ApplicationController
     redirect_to virtual_machines_url, notice: "#{stop_url} was sent"
   end
 
+  def restart_vm
+    # Create the session URL by oncatenating hte vCenter URL + the session path
+    vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
+    # get a token bu passing basic auth to the cis/session path
+    authtokenrequest = HTTParty.post(vcenter_session_url,
+      headers: {'Content-Type' => 'application/json',
+                  'vmware-use-header-authn' => 'BASIC'},
+      basic_auth: { username: ENV["RAILS_VCENTER_USER"],
+                      password: ENV["RAILS_VCENTER_PASS"] },
+      :verify => false)
+
+    # Pull the token from the JSON result
+    vctoken = authtokenrequest["value"]
+    # Create the URL which gets the VM details by concatenating the vCenter + url + VM id
+    restart_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm/" + (params[:id]) + "/power/reset"
+
+    @vm_restart_results = HTTParty.post(restart_url, 
+      :headers => { 'Content-Type' => 'application/json',
+                    'vmware-api-session-id' => vctoken}, 
+      :verify => false) 
+
+    redirect_to virtual_machines_url, notice: "#{restart_url} was sent"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_virtual_machine
