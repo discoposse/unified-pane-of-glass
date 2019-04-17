@@ -33,7 +33,7 @@
         </td>
         <td><%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Details</button>').html_safe, controller: "virtual_machines", action: "show", id: vmresult["vm"] %>
           <%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Start</button>').html_safe, controller: "virtual_machines", action: "start_vm", id: vmresult["vm"] %>
-          <%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Stop</button>').html_safe, controller: "virtual_machines", action: "stop_vm", id: vmresult["vm"] %>
+          <%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Stop</button>').html_safe, controller: "virtual_machines", action: "stop_vm", id: vmresult["vm"], :data => {:confirm => "You Sure?"} %>
           <%= link_to ('<button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="submitDemo()">Restart</button>').html_safe, controller: "virtual_machines", action: "restart_vm", id: vmresult["vm"] %>
         </td>
       </tr>

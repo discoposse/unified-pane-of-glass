@@ -1,9 +1,11 @@
 class VirtualMachinesController < ApplicationController
-  before_action :set_virtual_machine, only: [:show, :edit, :update, :destroy, :start_vm, :stop_vm]
+  before_action :set_virtual_machine, only: [:show, :edit, :update, :destroy, :start_vm, :stop_vm, :restart_vm]
 
   def index
-
-    # Create the session URL by oncatenating hte vCenter URL + the session path
+    # Set the safety measure to prevent restarting/stopping vCenter
+    # Get the vCenter name
+    @vcenter_name = ENV["RAILS_VCENTER_NAME"]
+    # Create the session URL by concatenating the vCenter URL + the session path
     vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
     # get a token bu passing basic auth to the cis/session path
     authtokenrequest = HTTParty.post(vcenter_session_url,
@@ -12,7 +14,6 @@ class VirtualMachinesController < ApplicationController
       basic_auth: { username: ENV["RAILS_VCENTER_USER"],
                       password: ENV["RAILS_VCENTER_PASS"] },
       :verify => false)
-
     # Pull the token from the JSON result
     vctoken = authtokenrequest["value"]
     # Create the URL which gets the VM list by concatenating the vCenter + url path
@@ -30,10 +31,12 @@ class VirtualMachinesController < ApplicationController
     #vm_string_results = vm_string["value"].flatten(4)
     #@fitlered_results = vm_filter.select{}
     ### END FILTERING SECTION 
-
   end
 
   def show
+    # Set the safety measure to prevent restarting/stopping vCenter
+    # Get the vCenter name
+    @vcenter_name = ENV["RAILS_VCENTER_NAME"]
     # Create the session URL by oncatenating hte vCenter URL + the session path
     vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
     # get a token bu passing basic auth to the cis/session path
