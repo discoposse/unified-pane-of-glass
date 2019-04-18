@@ -3,9 +3,7 @@ class SelectedInstancesController < ApplicationController
 
   def index
     upog_config = Rails.application.config_for(:upog)
-
     @selected_instance_filter = Rails.application.config.x.upog.selected_instance_filter = upog_config['selected_instance_filter']
-
     # Create the session URL by oncatenating hte vCenter URL + the session path
     vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
     # get a token bu passing basic auth to the cis/session path
@@ -15,12 +13,10 @@ class SelectedInstancesController < ApplicationController
       basic_auth: { username: ENV["RAILS_VCENTER_USER"],
                       password: ENV["RAILS_VCENTER_PASS"] },
       :verify => false)
-
     # Pull the token from the JSON result
     vctoken = authtokenrequest["value"]
     # Create the URL which gets the VM list by concatenating the vCenter + url path
     vm_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm" + "?filter.names=" + @selected_instance_filter
-
     @selected_vm_results = HTTParty.get(vm_url, 
       :headers => { 'Content-Type' => 'application/json',
                     'vmware-api-session-id' => vctoken }, 

@@ -4,25 +4,9 @@ class VirtualMachinesController < ApplicationController
   def index
     # Set the safety measure to prevent restarting/stopping vCenter
     # Get the vCenter name
-    @vcenter_name = ENV["RAILS_VCENTER_NAME"]
-    # Create the session URL by concatenating the vCenter URL + the session path
-    vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
-    # get a token bu passing basic auth to the cis/session path
-    authtokenrequest = HTTParty.post(vcenter_session_url,
-      headers: {'Content-Type' => 'application/json',
-                  'vmware-use-header-authn' => 'BASIC'},
-      basic_auth: { username: ENV["RAILS_VCENTER_USER"],
-                      password: ENV["RAILS_VCENTER_PASS"] },
-      :verify => false)
-    # Pull the token from the JSON result
-    vctoken = authtokenrequest["value"]
-    # Create the URL which gets the VM list by concatenating the vCenter + url path
-    vm_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm"
-
-    @vmresults = HTTParty.get(vm_url, 
-      :headers => { 'Content-Type' => 'application/json',
-                    'vmware-api-session-id' => vctoken }, 
-      :verify => false)
+    # vcenter_name = ENV["RAILS_VCENTER_NAME"]
+    
+    vcauth 
 
     ### NOT YET USED - Related to filtering
     # Convert output to string and parse
@@ -36,7 +20,7 @@ class VirtualMachinesController < ApplicationController
   def show
     # Set the safety measure to prevent restarting/stopping vCenter
     # Get the vCenter name
-    @vcenter_name = ENV["RAILS_VCENTER_NAME"]
+    # @vcenter_name = ENV["RAILS_VCENTER_NAME"]
     # Create the session URL by oncatenating hte vCenter URL + the session path
     vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
     # get a token bu passing basic auth to the cis/session path
@@ -65,6 +49,8 @@ class VirtualMachinesController < ApplicationController
     @flatdetails = @p.flatten(4)
     # Now we can get stuff from it starting with disk details
     @diskdetails = @flatdetails[1]["disks"].flatten(4)
+
+    flash.now[:notice] = "Hey now"
   end
 
   def start_vm
@@ -77,17 +63,14 @@ class VirtualMachinesController < ApplicationController
       basic_auth: { username: ENV["RAILS_VCENTER_USER"],
                       password: ENV["RAILS_VCENTER_PASS"] },
       :verify => false)
-
     # Pull the token from the JSON result
     vctoken = authtokenrequest["value"]
     # Create the URL which gets the VM details by concatenating the vCenter + url + VM id
     start_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm/" + (params[:id]) + "/power/start"
-
     @vm_start_results = HTTParty.post(start_url, 
       :headers => { 'Content-Type' => 'application/json',
                     'vmware-api-session-id' => vctoken}, 
       :verify => false) 
-
     redirect_to virtual_machines_url, notice: "#{start_url} was sent"
   end
 
@@ -101,17 +84,14 @@ class VirtualMachinesController < ApplicationController
       basic_auth: { username: ENV["RAILS_VCENTER_USER"],
                       password: ENV["RAILS_VCENTER_PASS"] },
       :verify => false)
-
     # Pull the token from the JSON result
     vctoken = authtokenrequest["value"]
     # Create the URL which gets the VM details by concatenating the vCenter + url + VM id
     stop_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm/" + (params[:id]) + "/power/stop"
-
     @vm_stop_results = HTTParty.post(stop_url, 
       :headers => { 'Content-Type' => 'application/json',
                     'vmware-api-session-id' => vctoken}, 
       :verify => false) 
-
     redirect_to virtual_machines_url, notice: "#{stop_url} was sent"
   end
 
@@ -125,17 +105,14 @@ class VirtualMachinesController < ApplicationController
       basic_auth: { username: ENV["RAILS_VCENTER_USER"],
                       password: ENV["RAILS_VCENTER_PASS"] },
       :verify => false)
-
     # Pull the token from the JSON result
     vctoken = authtokenrequest["value"]
     # Create the URL which gets the VM details by concatenating the vCenter + url + VM id
     restart_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm/" + (params[:id]) + "/power/reset"
-
     @vm_restart_results = HTTParty.post(restart_url, 
       :headers => { 'Content-Type' => 'application/json',
                     'vmware-api-session-id' => vctoken}, 
       :verify => false) 
-
     redirect_to virtual_machines_url, notice: "#{restart_url} was sent"
   end
 
@@ -148,5 +125,26 @@ class VirtualMachinesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def virtual_machine_params
       params.fetch(:virtual_machine, {})
+    end
+
+    def vcauth
+      # Create the session URL by concatenating the vCenter URL + the session path
+      vcenter_session_url = ENV["RAILS_VCENTER_URL"] + "/rest/com/vmware/cis/session"
+      # get a token bu passing basic auth to the cis/session path
+      authtokenrequest = HTTParty.post(vcenter_session_url,
+        headers: {'Content-Type' => 'application/json',
+                    'vmware-use-header-authn' => 'BASIC'},
+        basic_auth: { username: ENV["RAILS_VCENTER_USER"],
+                        password: ENV["RAILS_VCENTER_PASS"] },
+        :verify => false)
+      # Pull the token from the JSON result
+      vctoken = authtokenrequest["value"]
+      # Create the URL which gets the VM list by concatenating the vCenter + url path
+      vm_url = ENV["RAILS_VCENTER_URL"] + "/rest/vcenter/vm"
+
+      @vmresults = HTTParty.get(vm_url, 
+        :headers => { 'Content-Type' => 'application/json',
+                      'vmware-api-session-id' => vctoken }, 
+        :verify => false)
     end
 end
