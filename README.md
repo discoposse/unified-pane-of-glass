@@ -56,13 +56,28 @@ There may be more to the process. Please submit an issue if there is anything th
 
 ### TODO List of more goodies to be added
 
+CORE
 - [ ] Error handling - pretty much everywhere
 - [ ] List VM Templates (not sure how to do this via API yet)
 - [ ] Add PowerCLI sandbox option
-- [ ] Disallow vCenter shutdown
-- [ ] Wildcard searches for specific instance view
-- [ ] Assign an owner to each VM
+- [ ] Dry up the controllers and organize vmURL better for less code repetition
+- [ ] Disallow vCenter shutdown (use helper for is_vcenter?)
+- [ ] Wildcard searches for specific instance view (static now)
+
+FUNCTIONAL
+- [ ] Assign an owner to each VM 
 - [ ] Create reservation for a machine
 
+
+
+SCRATCH
+
+    ### NOT YET USED - Related to filtering
+    # Convert output to string and parse
+    #vm_string = JSON.parse(@vmresults["value"].to_s)
+    #Flatten the JSON hash
+    #vm_string_results = vm_string["value"].flatten(4)
+    #@fitlered_results = vm_filter.select{}
+    ### END FILTERING SECTION 
 
 
